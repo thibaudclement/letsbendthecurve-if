@@ -1,0 +1,40 @@
+name: letsbendthecurve-website
+description: "Environmental Impact Manifest for letsbendthecurve.com"
+tags:
+  type: website
+  platform: github-pages
+  site-type: static-site
+spec:
+  manifestVersion: "1.0"
+aggregation:
+  type: both
+  metrics:
+    - estimated-carbon
+initialize:
+  plugins:
+    webpage-impact:
+      method: WebpageImpact
+      path: "@tngtech/if-webpage-plugins"
+      config:
+        url: "https://www.letsbendthecurve.com/"
+        device: "desktop"
+        scrollToBottom: true
+    co2js:
+      method: Co2js
+      path: "@tngtech/if-webpage-plugins"
+      config:
+        model: "swd"
+        version: 4
+        type: "swd"
+        green-web-host: false
+tree:
+  children:
+    homepage:
+      pipeline:
+        observe:
+          - webpage-impact
+        compute:
+          - co2js
+      inputs:
+        - timestamp: "2025-03-18T00:00:00Z"
+          duration: 60
